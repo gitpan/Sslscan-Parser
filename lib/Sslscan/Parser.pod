@@ -6,13 +6,13 @@ Sslscan::Parser - Parse sslscan scan data with Perl
 
 =head1 VERSION
 
-This document describes Sslscan::Parser version .01
+This document describes Sslscan::Parser version .02
 
 =head1 SYNOPSIS
 
  my $np = new Sslscan::Parser;
 
- my $parser = $np->parse_file('test1.xml');
+ my $parser = $np->parse_file('sslscan.xml');
     #a Sslscan::Parser Object
 
  my $host = $parser->get_host('10.0.0.100');
@@ -27,8 +27,6 @@ This document describes Sslscan::Parser version .01
  my @ciphers = $port->get_all_ciphers();
     #an Array of Sslscan::Parser::Host::Port::Cipher Objects
  
-I<For a full listing of methods see the documentation corresponding to each object.>
-
 =head1 DESCRIPTION
 
 
@@ -51,20 +49,26 @@ I<For a full listing of methods see the documentation corresponding to each obje
 
 =head2 Sslscan::Parser
 
-The main idea behind the core modules is, you will first parse the
-scan data then extract the information. Therefore, you should run
-parse_file or parse_scan then the you can use any of the get_*
-methods.
+The main idea behind the core modules is, you will first parse the scan data
+then extract the information. Therefore, you should run parse_file or
+parse_scan then the you can use any of the subroutines in this module.
 
 =over 4
 
 =item B<parse_file($xml_file)>
 
-Parse a Sslscan XML file. The XML files are generated from using the: Sslscan.pl --xml=file output.xml $IP
+Parse a Sslscan XML file. This subroutine will return a Sslscan::Parser object
+that contains the XML data. 
+
+XML files are generated from using the following command:
+
+ $ sslscan --xml=file.xml [hostname]
 
 =item B<parse_scan($scan_args,@ips)> 
 
-Perform a Sslscan scan with Sslscan::Parser. The results will be parsed once the scan is complete.
+Perform a Sslscan scan with Sslscan::Parser. The results will be parsed once
+the scan is complete.  This subroutine will return a Sslscan::Parser object
+that contains the XML data.
 
 =item B<get_session()>
 
@@ -147,7 +151,7 @@ This object contains the information for cipher.
 
 =item B<status()>
 
-Returns the status of the cipher
+Returns the status of the cipher. Either "accepted" or "rejected"
 
 =item B<cipher()>
 
@@ -155,36 +159,39 @@ Returns the Cipher.
 
 =item B<bits()>
 
-Returns the number of bits
+Returns the number of bits of the cipher.
 
 =item B<sslversion()>
 
-Returns the ssl version
+Returns the SSL version.
 
 =back 
 
 =head1 EXAMPLES
 
-
 Here is an example of parsing an XML file using Sslscan::Parser:
 
-my $sslpx = new Sslscan::Parser;
+ my $sslpx = new Sslscan::Parser;
 
-my $parser = $sslpx->parse_file("test1.xml");
+ my $parser = $sslpx->parse_file("sslscan.xml");
 
-foreach my $h ( $parser->get_all_hosts() ){
-    print "ip: " . $h->ip . "\n";
-    foreach my $p ( $h->get_all_ports ) {
-        print "port: " . $p->port . "\n";
-    }   
-    print "---\n";
-
-}   
+ foreach my $h ( $parser->get_all_hosts() ){
+     print "ip: " . $h->ip . "\n";
+     foreach my $p ( $h->get_all_ports ) {
+         print "port: " . $p->port . "\n";
+         foreach my $c ( $c->get_all_ciphers ) {
+            print "version is " . $c->sslversion . "\n";
+            print "cipher is " . $c->cipher . "\n";
+            print "bits is " . $c->bits . "\n";
+            print "status is " . $c->status . "\n";
+         }
+     }   
+     print "---\n";
+ }   
 
 =head1 SEE ALSO
 
  sslscan, XML::LibXML and Object::InsideOut
- 
 
 =head1 AUTHOR
 

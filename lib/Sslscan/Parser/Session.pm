@@ -1,4 +1,4 @@
-# $Id: Session.pm 18 2008-05-05 23:55:18Z jabra $
+# $Id: Session.pm 134 2009-10-16 18:21:38Z jabra $
 package Sslscan::Parser::Session;
 {
     our $VERSION = '0.01';
@@ -20,9 +20,10 @@ package Sslscan::Parser::Session;
         foreach my $Sslscanscan ( $doc->getElementsByTagName('document') ) {
             return Sslscan::Parser::Session->new(
                 title   => $Sslscanscan->getAttribute('title'),
-                version     => $Sslscanscan->getAttribute('version'),
+                version => $Sslscanscan->getAttribute('version'),
                 web     => $Sslscanscan->getAttribute('web'),
-                scandetails => Sslscan::Parser::ScanDetails->parse( $parser, $doc ),
+                scandetails =>
+                    Sslscan::Parser::ScanDetails->parse( $parser, $doc ),
             );
         }
     }

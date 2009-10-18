@@ -1,4 +1,4 @@
-# $Id: ScanDetails.pm 18 2008-05-05 23:55:18Z jabra $
+# $Id: ScanDetails.pm 134 2009-10-16 18:21:38Z jabra $
 package Sslscan::Parser::ScanDetails;
 {
     our $VERSION = '0.01';

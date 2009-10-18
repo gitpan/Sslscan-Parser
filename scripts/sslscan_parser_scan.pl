@@ -1,7 +1,9 @@
 #!/usr/bin/perl -w
 #########################################
 #
-# Sslscan::Parser v1.0 - Beta 06/17/2009
+# Sslscan::Parser v.01 - example
+#
+# perform a scan and parse the results.
 #
 #########################################
 use strict;
@@ -27,7 +29,7 @@ else {
 my $parser = $sslpx->parse_scan("","$hostname");
 my $host = $parser->get_host("$hostname");
 print "ip is: " . $host->ip . "\n";
-foreach my $p ( @{ $host->get_all_ports } ) {
+foreach my $p (  $host->get_all_ports ) {
     print "port: " . $p->port . "\n";
     print "accpeted ciphers are \n";
     foreach my $i ( grep( $_->status =~ /accepted/i, $p->get_all_ciphers() ) ) {

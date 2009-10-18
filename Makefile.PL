@@ -9,6 +9,7 @@ WriteMakefile(
     ABSTRACT_FROM       => 'lib/Sslscan/Parser.pod',
     PREREQ_PM           => {
                 'Test::More'        => '0',
+                'Test::Class'        => '0',
                 'Object::InsideOut' => '0',
                 'XML::LibXML'	    => '0',
                 'File::Temp'	    => '0',

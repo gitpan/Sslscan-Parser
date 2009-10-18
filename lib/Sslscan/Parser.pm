@@ -1,7 +1,7 @@
-# $Id: Parser.pm 71 2008-08-31 05:58:17Z jabra $
+# $Id: Parser.pm 134 2009-10-16 18:21:38Z jabra $
 package Sslscan::Parser;
 {
-    our $VERSION = '0.01';
+    our $VERSION = '0.02';
     $VERSION = eval $VERSION;
 
     use Object::InsideOut;
@@ -38,6 +38,11 @@ package Sslscan::Parser;
             die
                 "[Sslscan-Parser] Cannot pass option '-output ' to parse_scan()";
         }
+        elsif ( $args =~ /--xml/ ) {
+            die
+                "[Sslscan-Parser] Cannot pass option '--xml ' to parse_scan()";
+        }
+        else { }
         my $cmd
             = "sslscan --xml=\"$temp_fname\" "
             . ( join ', ', @ips )

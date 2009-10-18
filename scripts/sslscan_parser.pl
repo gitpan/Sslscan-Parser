@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
-#########################################
+#####################################################
 #
-# Sslscan::Parser v1.0 - Beta 06/17/2009
+# Sslscan::Parser v.01 example script for google.xml
 #
-#########################################
+#####################################################
 use strict;
 use Sslscan::Parser;
 use Getopt::Long;
